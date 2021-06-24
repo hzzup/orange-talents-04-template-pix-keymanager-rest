@@ -1,14 +1,13 @@
 micronaut:
+  server:
+    port: 8089
   application:
     name: pixRest
-datasources:
-  default:
-    url: jdbc:postgresql://localhost:5434/pix_rest
-    driverClassName: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    schema-generate: CREATE_DROP
-    dialect: POSTGRES
-jpa.default.properties.hibernate.hbm2ddl.auto: update
-jpa.default.properties.hibernate.show_sql: true
-jpa.default.properties.hibernate.format_sql: true
+#configuracoes GRPC
+grpc:
+  client:
+    plaintext: true
+    max-retry-attempts: 10
+  channels:
+    keyManager:
+      address: '${KEY_MANAGER_HOST:localhost}:${KEY_MANAGER_PORT:50051}'
