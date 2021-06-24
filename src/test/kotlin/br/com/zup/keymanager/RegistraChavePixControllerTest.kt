@@ -8,7 +8,6 @@ import br.com.zup.keymanager.dto.TipoDeContaRequest
 import br.com.zup.keymanager.grpc.KeyManagerGrpcFactory
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
-import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Replaces
 import io.micronaut.http.HttpRequest
@@ -16,7 +15,6 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
-import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -100,9 +98,9 @@ class RegistraChavePixControllerTest {
     //substituimos por uma fabrica do mockito para mockar o grpc
     @Factory
     @Replaces(factory = KeyManagerGrpcFactory::class)
-    internal class MockitoStubFactory {
+    internal class RegistraStubFactory {
 
         @Singleton
-        fun stubMock() = Mockito.mock(KeyManagerRegistraGrpcServiceGrpc.KeyManagerRegistraGrpcServiceBlockingStub::class.java)
+        fun registraChave() = Mockito.mock(KeyManagerRegistraGrpcServiceGrpc.KeyManagerRegistraGrpcServiceBlockingStub::class.java)
     }
 }

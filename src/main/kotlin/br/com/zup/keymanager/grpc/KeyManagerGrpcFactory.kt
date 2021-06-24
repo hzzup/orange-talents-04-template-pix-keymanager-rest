@@ -24,6 +24,4 @@ class KeyManagerGrpcFactory(@GrpcChannel("keyManager") val channel: ManagedChann
 
     @Singleton
     fun buscaChave() = KeyManagerBuscaChaveGrpcServiceGrpc.newBlockingStub(channel)
-
-
 }
