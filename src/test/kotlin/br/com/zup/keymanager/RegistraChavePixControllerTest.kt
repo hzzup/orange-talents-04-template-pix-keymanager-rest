@@ -93,14 +93,13 @@ class RegistraChavePixControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.status)
     }
 
+    //Não é necessario mockar a factory inteira mais, apenas o metodo
+    //@Factory
+    //@Replaces(factory = KeyManagerGrpcFactory::class)
+    //internal class RegistraStubFactory {
 
-    //na nossa factory que geraria nossos stubs do grpc
-    //substituimos por uma fabrica do mockito para mockar o grpc
-    @Factory
-    @Replaces(factory = KeyManagerGrpcFactory::class)
-    internal class RegistraStubFactory {
-
-        @Singleton
-        fun registraChave() = Mockito.mock(KeyManagerRegistraGrpcServiceGrpc.KeyManagerRegistraGrpcServiceBlockingStub::class.java)
-    }
+    @Singleton
+    @Replaces(bean = KeyManagerRegistraGrpcServiceGrpc.KeyManagerRegistraGrpcServiceBlockingStub::class)
+    fun registraChave() = Mockito.mock(KeyManagerRegistraGrpcServiceGrpc.KeyManagerRegistraGrpcServiceBlockingStub::class.java)
+    //}
 }

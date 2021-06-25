@@ -73,13 +73,12 @@ class RemoveChavePixControllerTest {
     }
 
 
-    //na nossa factory que geraria nossos stubs do grpc
-    //substituimos por uma fabrica do mockito para mockar o grpc
-    @Factory
-    @Replaces(factory = KeyManagerGrpcFactory::class)
-    internal class RemoveStubFactory  {
-
-        @Singleton
-        fun deletaChave() = Mockito.mock(KeyManagerRemoveGrpcServiceGrpc.KeyManagerRemoveGrpcServiceBlockingStub::class.java)
-    }
+    //Não é necessario mockar a factory inteira mais, apenas o metodo
+    //@Factory
+    //@Replaces(factory = KeyManagerGrpcFactory::class)
+    //internal class RemoveStubFactory  {
+    @Singleton
+    @Replaces(bean=KeyManagerRemoveGrpcServiceGrpc.KeyManagerRemoveGrpcServiceBlockingStub::class)
+    fun deletaChave() = Mockito.mock(KeyManagerRemoveGrpcServiceGrpc.KeyManagerRemoveGrpcServiceBlockingStub::class.java)
+    //}
 }
